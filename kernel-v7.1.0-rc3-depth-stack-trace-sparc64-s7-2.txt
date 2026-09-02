@@ -1,0 +1,235 @@
+# grep -iE CONFIG_STACK_TRACER .config
+CONFIG_STACK_TRACER=y
+
+# grep -iE CONFIG_DEBUG_STACK_USAGE .config
+CONFIG_DEBUG_STACK_USAGE=y
+
+# grep -iE CONFIG_SCHED_STACK_END_CHECK .config
+CONFIG_SCHED_STACK_END_CHECK=y
+
+# uname -a
+Linux s7t7-debian-test 7.1.0-rc3-tonyr #2 SMP Thu May 14 17:40:23 PDT 2026 sparc64 GNU/Linux
+
+**********************************************************************************************
+# grep -iE GRUB_CMDLINE /etc/default/grub
+GRUB_CMDLINE_LINUX="console=ttyHV0,9600n81 stacktrace plymouth.enable=0"
+
+# cat /sys/kernel/tracing/stack_max_size
+13752
+
+# cat /sys/kernel/tracing/stack_trace
+        Depth    Size   Location    (63 entries)
+        -----    ----   --------
+  0)    13752     224   ftrace_call+0x0/0x8
+  1)    13528     176   _raw_spin_lock_irqsave+0x4/0x40
+  2)    13352     176   lock_hrtimer_base+0x24/0x80
+  3)    13176     176   hrtimer_try_to_cancel.part.0+0x10/0x120
+  4)    13000     192   hrtimer_try_to_cancel+0x1c/0x40
+  5)    12808     176   update_curr_dl_se+0x3fc/0x780
+  6)    12632     192   dl_server_update+0x34/0x60
+  7)    12440     176   update_curr+0x14c/0x180
+  8)    12264     176   dequeue_entities+0x58/0x1260
+  9)    12088     208   dequeue_task_fair+0xa4/0x4e0
+ 10)    11880     176   dequeue_task+0x98/0x1c0
+ 11)    11704     176   switch_to_pc+0x414/0xa88
+ 12)    11528     192   schedule+0x1c/0x180
+ 13)    11336     176   schedule_timeout+0x70/0x100
+ 14)    11160     224   wait_for_completion_timeout+0x58/0x140
+ 15)    10936     208   cmd_exec+0x898/0xb00 [mlx5_core]
+ 16)    10728     240   mlx5_cmd_exec+0x28/0x80 [mlx5_core]
+ 17)    10488     192   mlx5_cmd_set_fte+0x728/0x8e0 [mlx5_core]
+ 18)    10296     208   mlx5_cmd_create_fte+0x20/0x40 [mlx5_core]
+ 19)    10088     176   add_rule_fg+0x454/0x840 [mlx5_core]
+ 20)     9912     224   _mlx5_add_flow_rules+0x17b4/0x19c0 [mlx5_core]
+ 21)     9688     352   mlx5_add_flow_rules+0x1c4/0x2a0 [mlx5_core]
+ 22)     9336     176   mlx5_create_inner_ttc_table+0x414/0x660 [mlx5_core]
+ 23)     9160     272   mlx5e_create_inner_ttc_table+0xbc/0x120 [mlx5_core]
+ 24)     8888    1264   mlx5e_create_flow_steering+0x48/0x9a0 [mlx5_core]
+ 25)     7624     224   mlx5e_init_nic_rx+0x94/0x180 [mlx5_core]
+ 26)     7400     176   mlx5e_attach_netdev+0xec/0x340 [mlx5_core]
+ 27)     7224     192   _mlx5e_resume+0x60/0xc0 [mlx5_core]
+ 28)     7032     176   mlx5e_probe+0x558/0x8e0 [mlx5_core]
+ 29)     6856     240   auxiliary_bus_probe+0x38/0x80
+ 30)     6616     176   really_probe+0xc8/0x480
+ 31)     6440     176   __driver_probe_device+0x9c/0x1a0
+ 32)     6264     176   driver_probe_device+0x28/0x100
+ 33)     6088     176   __device_attach_driver+0x9c/0x160
+ 34)     5912     176   bus_for_each_drv+0x70/0xc0
+ 35)     5736     192   __device_attach+0x8c/0x1c0
+ 36)     5544     192   device_initial_probe+0x3c/0x60
+ 37)     5352     176   bus_probe_device+0x20/0xa0
+ 38)     5176     176   device_add+0x694/0x860
+ 39)     5000     192   __auxiliary_device_add+0x38/0xa0
+ 40)     4808     176   add_adev+0x80/0xe0 [mlx5_core]
+ 41)     4632     176   mlx5_rescan_drivers_locked+0x154/0x1c0 [mlx5_core]
+ 42)     4456     192   mlx5_register_device+0x30/0xa0 [mlx5_core]
+ 43)     4264     176   mlx5_init_one_devl_locked+0x20c/0x5a0 [mlx5_core]
+ 44)     4088     176   mlx5_init_one+0x44/0x80 [mlx5_core]
+ 45)     3912     176   probe_one+0x208/0x4c0 [mlx5_core]
+ 46)     3736     176   pci_device_probe+0xb0/0x1a0
+ 47)     3560     176   really_probe+0xc8/0x480
+ 48)     3384     176   __driver_probe_device+0x9c/0x1a0
+ 49)     3208     176   driver_probe_device+0x28/0x100
+ 50)     3032     176   __driver_attach+0xbc/0x240
+ 51)     2856     176   bus_for_each_dev+0x5c/0xc0
+ 52)     2680     192   driver_attach+0x1c/0x40
+ 53)     2488     176   bus_add_driver+0x198/0x260
+ 54)     2312     176   driver_register+0x78/0x140
+ 55)     2136     176   __pci_register_driver+0x48/0x60
+ 56)     1960     176   mlx5_ib_create_ah+0x78/0x2a0 [mlx5_ib]
+ 57)     1784     176   do_one_initcall+0x48/0x2c0
+ 58)     1608     240   do_init_module+0x4c/0x240
+ 59)     1368     176   load_module+0x1de4/0x2500
+ 60)     1192     384   init_module_from_file+0x9c/0x120
+ 61)      808     336   sys_finit_module+0x1d8/0x360
+ 62)      472     472   linux_sparc_syscall+0x34/0x44
+
+************************************************************
+Manual reboot and tested again
+************************************************************
+
+        Depth    Size   Location    (67 entries)
+        -----    ----   --------
+  0)    14680     224   ftrace_call+0x0/0x8
+  1)    14456     176   update_se+0x4/0x1c0
+  2)    14280     176   update_curr+0x1c/0x180
+  3)    14104     176   reweight_entity+0x260/0x320
+  4)    13928     176   update_cfs_group+0x90/0xa0
+  5)    13752     176   task_tick_fair+0x138/0x540
+  6)    13576     176   sched_tick+0x78/0x2c0
+  7)    13400     176   update_process_times+0xa8/0xe0
+  8)    13224     192   tick_nohz_handler+0x90/0x200
+  9)    13032     176   __hrtimer_run_queues+0xf8/0x2c0
+ 10)    12856     176   hrtimer_interrupt+0xc4/0x280
+ 11)    12680     176   timer_interrupt+0x78/0xc0
+ 12)    12504     384   tl0_irq14+0x14/0x20
+ 13)    12120     144   finish_task_switch.isra.0+0x94/0x3e0
+ 14)    11976     192   switch_to_pc+0x4/0xa88
+ 15)    11784     192   schedule+0x1c/0x140
+ 16)    11592     176   schedule_timeout+0x70/0x100
+ 17)    11416     224   wait_for_completion_timeout+0x58/0x140
+ 18)    11192     208   cmd_exec+0x898/0xb00 [mlx5_core]
+ 19)    10984     240   mlx5_cmd_exec+0x28/0x80 [mlx5_core]
+ 20)    10744     192   mlx5_cmd_set_fte+0x728/0x8e0 [mlx5_core]
+ 21)    10552     208   mlx5_cmd_create_fte+0x20/0x40 [mlx5_core]
+ 22)    10344     176   add_rule_fg+0x454/0x840 [mlx5_core]
+ 23)    10168     224   _mlx5_add_flow_rules+0x17b4/0x19c0 [mlx5_core]
+ 24)     9944     352   mlx5_add_flow_rules+0x1c4/0x2a0 [mlx5_core]
+ 25)     9592     176   mlx5_create_inner_ttc_table+0x414/0x660 [mlx5_core]
+ 26)     9416     272   mlx5e_create_inner_ttc_table+0xbc/0x120 [mlx5_core]
+ 27)     9144    1264   mlx5e_create_flow_steering+0x48/0x9a0 [mlx5_core]
+ 28)     7880     224   mlx5e_init_nic_rx+0x94/0x180 [mlx5_core]
+ 29)     7656     176   mlx5e_attach_netdev+0xec/0x340 [mlx5_core]
+ 30)     7480     192   _mlx5e_resume+0x60/0xc0 [mlx5_core]
+ 31)     7288     176   mlx5e_probe+0x558/0x8e0 [mlx5_core]
+ 32)     7112     240   auxiliary_bus_probe+0x38/0x80
+ 33)     6872     176   really_probe+0xc8/0x480
+ 34)     6696     176   __driver_probe_device+0x9c/0x1a0
+ 35)     6520     176   driver_probe_device+0x28/0x100
+ 36)     6344     176   __device_attach_driver+0x9c/0x160
+ 37)     6168     176   bus_for_each_drv+0x70/0xc0
+ 38)     5992     192   __device_attach+0x8c/0x1c0
+ 39)     5800     192   device_initial_probe+0x3c/0x60
+ 40)     5608     176   bus_probe_device+0x20/0xa0
+ 41)     5432     176   device_add+0x6b8/0x8a0
+ 42)     5256     192   __auxiliary_device_add+0x38/0xa0
+ 43)     5064     176   add_adev+0x80/0xe0 [mlx5_core]
+ 44)     4888     176   mlx5_rescan_drivers_locked+0x154/0x1c0 [mlx5_core]
+ 45)     4712     192   mlx5_register_device+0x30/0xa0 [mlx5_core]
+ 46)     4520     176   mlx5_init_one_devl_locked+0x20c/0x5a0 [mlx5_core]
+ 47)     4344     176   mlx5_init_one+0x44/0x80 [mlx5_core]
+ 48)     4168     176   probe_one+0x208/0x4c0 [mlx5_core]
+ 49)     3992     176   local_pci_probe+0x2c/0x80
+ 50)     3816     176   pci_device_probe+0xc8/0x2a0
+ 51)     3640     256   really_probe+0xc8/0x480
+ 52)     3384     176   __driver_probe_device+0x9c/0x1a0
+ 53)     3208     176   driver_probe_device+0x28/0x100
+ 54)     3032     176   __driver_attach+0xbc/0x240
+ 55)     2856     176   bus_for_each_dev+0x5c/0xc0
+ 56)     2680     192   driver_attach+0x1c/0x40
+ 57)     2488     176   bus_add_driver+0x198/0x260
+ 58)     2312     176   driver_register+0x78/0x140
+ 59)     2136     176   __pci_register_driver+0x48/0x60
+ 60)     1960     176   mlx5_ib_create_ah+0x78/0x2a0 [mlx5_ib]
+ 61)     1784     176   do_one_initcall+0x48/0x2c0
+ 62)     1608     240   do_init_module+0x4c/0x240
+ 63)     1368     176   load_module+0x1de4/0x2500
+ 64)     1192     384   init_module_from_file+0x9c/0x120
+ 65)      808     336   sys_finit_module+0x1d8/0x360
+ 66)      472     472   linux_sparc_syscall+0x34/0x44
+
+**************************************************************************
+Manual reboot and tested again.  Note: blacklisted mlx5 driver via grub
+**************************************************************************
+ GRUB_CMDLINE_LINUX="console=ttyHV0,9600n81 stacktrace plymouth.enable=0 modprobe.blacklist=mlx5_ib modprobe.blacklist=mlx5_core initcall_blacklist=mlx5_core_init_module"
+
+ # cat /sys/kernel/tracing/stack_trace
+        Depth    Size   Location    (67 entries)
+        -----    ----   --------
+  0)    13352     208   arch_ftrace_ops_list_func+0xf0/0x1c0
+  1)    13144     176   hypervisor_xcall_deliver+0x4/0x320
+  2)    12968     208   xcall_deliver+0x128/0x140
+  3)    12760     176   arch_send_call_function_single_ipi+0x3c/0x60
+  4)    12584     176   __smp_call_single_queue+0x138/0x1e0
+  5)    12408     176   generic_exec_single+0x50/0x240
+  6)    12232     176   smp_call_function_single_async+0x24/0x40
+  7)    12056     176   sched_balance_trigger+0x310/0x440
+  8)    11880     192   sched_tick+0xc4/0x2c0
+  9)    11688     176   update_process_times+0xa8/0xe0
+ 10)    11512     192   tick_nohz_handler+0x90/0x200
+ 11)    11320     176   __hrtimer_run_queues+0xf8/0x2c0
+ 12)    11144     176   hrtimer_interrupt+0xc4/0x280
+ 13)    10968     176   timer_interrupt+0x78/0xc0
+ 14)    10792     384   tl0_irq14+0x14/0x20
+ 15)    10408     144   console_flush_one_record+0x2d4/0x4a0
+ 16)    10264      40   console_unlock+0x60/0x140
+ 17)    10224     408   vprintk_emit+0x334/0x360
+ 18)     9816     192   dev_vprintk_emit+0x110/0x120
+ 19)     9624     240   dev_printk_emit+0x24/0x34
+ 20)     9384     192   __dev_printk+0x40/0x6c
+ 21)     9192     176   _dev_info+0x38/0x48
+ 22)     9016     208   hub_probe+0x13c/0x1160 [usbcore]
+ 23)     8808     256   usb_probe_interface+0xdc/0x320 [usbcore]
+ 24)     8552     176   really_probe+0x278/0x480
+ 25)     8376     176   __driver_probe_device+0x9c/0x1a0
+ 26)     8200     176   driver_probe_device+0x28/0x100
+ 27)     8024     176   __device_attach_driver+0x9c/0x160
+ 28)     7848     176   bus_for_each_drv+0x70/0xc0
+ 29)     7672     192   __device_attach+0x8c/0x1c0
+ 30)     7480     192   device_initial_probe+0x3c/0x60
+ 31)     7288     176   bus_probe_device+0x20/0xa0
+ 32)     7112     176   device_add+0x694/0x860
+ 33)     6936     192   usb_set_configuration+0x5f4/0x9c0 [usbcore]
+ 34)     6744     320   usb_generic_driver_probe+0x48/0xc0 [usbcore]
+ 35)     6424     176   usb_probe_device+0x3c/0x180 [usbcore]
+ 36)     6248     176   really_probe+0x278/0x480
+ 37)     6072     176   __driver_probe_device+0x9c/0x1a0
+ 38)     5896     176   driver_probe_device+0x28/0x100
+ 39)     5720     176   __device_attach_driver+0x9c/0x160
+ 40)     5544     176   bus_for_each_drv+0x70/0xc0
+ 41)     5368     192   __device_attach+0x8c/0x1c0
+ 42)     5176     192   device_initial_probe+0x3c/0x60
+ 43)     4984     176   bus_probe_device+0x20/0xa0
+ 44)     4808     176   device_add+0x694/0x860
+ 45)     4632     192   usb_new_device+0x258/0x5e0 [usbcore]
+ 46)     4440     176   register_root_hub+0x1ac/0x234 [usbcore]
+ 47)     4264     176   usb_add_hcd+0x63c/0x700 [usbcore]
+ 48)     4088     176   xhci_pci_common_probe+0x1e8/0x2a0 [xhci_pci]
+ 49)     3912     176   xhci_pci_probe+0x24/0x40 [xhci_pci]
+ 50)     3736     176   pci_device_probe+0xb0/0x1a0
+ 51)     3560     176   really_probe+0xc8/0x480
+ 52)     3384     176   __driver_probe_device+0x9c/0x1a0
+ 53)     3208     176   driver_probe_device+0x28/0x100
+ 54)     3032     176   __driver_attach+0xbc/0x240
+ 55)     2856     176   bus_for_each_dev+0x5c/0xc0
+ 56)     2680     192   driver_attach+0x1c/0x40
+ 57)     2488     176   bus_add_driver+0x198/0x260
+ 58)     2312     176   driver_register+0x78/0x140
+ 59)     2136     176   __pci_register_driver+0x48/0x60
+ 60)     1960     176   xhci_pci_init+0x6c/0x2000 [xhci_pci]
+ 61)     1784     176   do_one_initcall+0x48/0x2c0
+ 62)     1608     240   do_init_module+0x4c/0x240
+ 63)     1368     176   load_module+0x1de4/0x2500
+ 64)     1192     384   init_module_from_file+0x9c/0x120
+ 65)      808     336   sys_finit_module+0x1d8/0x360
+ 66)      472     472   linux_sparc_syscall+0x34/0x44
